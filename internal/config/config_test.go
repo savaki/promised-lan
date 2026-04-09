@@ -144,3 +144,40 @@ func TestLoadMissingFile(t *testing.T) {
 		t.Fatal("expected error for missing file")
 	}
 }
+
+func TestValidateAggregatesAllErrors(t *testing.T) {
+	cfg := Config{
+		UpstreamInterface:     "wlan0",
+		InteriorInterface:     "wlan0",
+		HTTPPort:              70000,
+		ConnectionName:        "bad name!",
+		ConnectTimeoutSeconds: 999,
+	}
+	err := cfg.Validate()
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	msg := err.Error()
+	for _, want := range []string{
+		"upstream_interface must not equal interior_interface",
+		"http_port",
+		"connect_timeout_seconds",
+		"connection_name",
+	} {
+		if !strings.Contains(msg, want) {
+			t.Errorf("aggregated error missing %q: %s", want, msg)
+		}
+	}
+}
+
+func TestLoadMalformedYAML(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, "config.yaml")
+	if err := os.WriteFile(path, []byte("not: valid: yaml: ::"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	_, err := Load(path)
+	if err == nil {
+		t.Fatal("expected parse error for malformed YAML")
+	}
+}

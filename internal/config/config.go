@@ -44,6 +44,12 @@ func (c *Config) applyDefaults() {
 // Validate returns all validation errors joined with errors.Join.
 func (c Config) Validate() error {
 	var errs []error
+	if c.UpstreamInterface == "" {
+		errs = append(errs, errors.New("upstream_interface must not be empty"))
+	}
+	if c.InteriorInterface == "" {
+		errs = append(errs, errors.New("interior_interface must not be empty"))
+	}
 	if c.UpstreamInterface == c.InteriorInterface {
 		errs = append(errs, errors.New("upstream_interface must not equal interior_interface"))
 	}
