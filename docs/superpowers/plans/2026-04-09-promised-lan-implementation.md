@@ -1679,14 +1679,15 @@ func (n *NMCLI) UpdateAndActivate(ctx context.Context, ssid, psk string) (Status
 		return Status{Link: "down", Interface: n.upstreamInterface}, err
 	}
 
-	// Apply new credentials. PSK is at argv index 7.
+	// Apply new credentials. PSK value is at argv index 8
+	// (index 7 is the key "wifi-sec.psk", index 8 is the value).
 	modArgs := []string{
 		"con", "mod", n.connectionName,
 		"802-11-wireless.ssid", ssid,
 		"wifi-sec.key-mgmt", "wpa-psk",
 		"wifi-sec.psk", psk,
 	}
-	if _, err := n.runner.run(ctx, modArgs, 7); err != nil {
+	if _, err := n.runner.run(ctx, modArgs, 8); err != nil {
 		return Status{Link: "down", Interface: n.upstreamInterface}, err
 	}
 
