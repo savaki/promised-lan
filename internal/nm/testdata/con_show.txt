@@ -1,0 +1,2 @@
+promised-lan-upstream:3ab8a7f2-1234-5678-aaaa-bbbbbbbbbbbb:yes:wlan1
+interior-ap:d1f9c4e3-9999-8888-cccc-dddddddddddd:yes:wlan0

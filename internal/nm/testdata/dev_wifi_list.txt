@@ -1,0 +1,5 @@
+yes:HomeWifi:78:WPA2
+no:CoffeeShop:62:--
+no:Neighbor-5G:41:WPA2
+no:XFINITY:28:WPA2
+no:iPhone\:matt:15:WPA3
