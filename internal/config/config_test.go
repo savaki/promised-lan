@@ -10,11 +10,11 @@ import (
 func TestApplyDefaults(t *testing.T) {
 	var c Config
 	c.applyDefaults()
-	if c.UpstreamInterface != "wlan1" {
-		t.Errorf("UpstreamInterface: got %q, want wlan1", c.UpstreamInterface)
+	if c.UpstreamInterface != "wlan0" {
+		t.Errorf("UpstreamInterface: got %q, want wlan0", c.UpstreamInterface)
 	}
-	if c.InteriorInterface != "wlan0" {
-		t.Errorf("InteriorInterface: got %q, want wlan0", c.InteriorInterface)
+	if c.InteriorInterface != "wlan1" {
+		t.Errorf("InteriorInterface: got %q, want wlan1", c.InteriorInterface)
 	}
 	if c.HTTPPort != 8080 {
 		t.Errorf("HTTPPort: got %d, want 8080", c.HTTPPort)

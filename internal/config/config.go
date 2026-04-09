@@ -25,10 +25,10 @@ var connectionNameRe = regexp.MustCompile(`^[a-zA-Z0-9._-]+$`)
 // applyDefaults fills zero-valued fields with the documented defaults.
 func (c *Config) applyDefaults() {
 	if c.UpstreamInterface == "" {
-		c.UpstreamInterface = "wlan1"
+		c.UpstreamInterface = "wlan0"
 	}
 	if c.InteriorInterface == "" {
-		c.InteriorInterface = "wlan0"
+		c.InteriorInterface = "wlan1"
 	}
 	if c.HTTPPort == 0 {
 		c.HTTPPort = 8080

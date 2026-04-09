@@ -32,8 +32,8 @@ func InstallCommand(logger *slog.Logger) *cli.Command {
 		Name:  "install",
 		Usage: "install promised-lan as a systemd service",
 		Flags: []cli.Flag{
-			&cli.StringFlag{Name: "upstream-interface", Value: "wlan1"},
-			&cli.StringFlag{Name: "interior-interface", Value: "wlan0"},
+			&cli.StringFlag{Name: "upstream-interface", Value: "wlan0"},
+			&cli.StringFlag{Name: "interior-interface", Value: "wlan1"},
 			&cli.IntFlag{Name: "http-port", Value: 8080},
 			&cli.BoolFlag{Name: "force", Usage: "overwrite existing config"},
 		},
@@ -95,10 +95,10 @@ func InstallCommand(logger *slog.Logger) *cli.Command {
 // Keep in sync with internal/config/config.go.
 func applyDefaultsForInstall(c *config.Config) {
 	if c.UpstreamInterface == "" {
-		c.UpstreamInterface = "wlan1"
+		c.UpstreamInterface = "wlan0"
 	}
 	if c.InteriorInterface == "" {
-		c.InteriorInterface = "wlan0"
+		c.InteriorInterface = "wlan1"
 	}
 	if c.HTTPPort == 0 {
 		c.HTTPPort = 8080
