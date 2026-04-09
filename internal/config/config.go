@@ -50,7 +50,7 @@ func (c Config) Validate() error {
 	if c.InteriorInterface == "" {
 		errs = append(errs, errors.New("interior_interface must not be empty"))
 	}
-	if c.UpstreamInterface == c.InteriorInterface {
+	if c.UpstreamInterface != "" && c.InteriorInterface != "" && c.UpstreamInterface == c.InteriorInterface {
 		errs = append(errs, errors.New("upstream_interface must not equal interior_interface"))
 	}
 	if c.HTTPPort < 1 || c.HTTPPort > 65535 {

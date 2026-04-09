@@ -181,3 +181,25 @@ func TestLoadMalformedYAML(t *testing.T) {
 		t.Fatal("expected parse error for malformed YAML")
 	}
 }
+
+func TestValidateEmptyConfigDoesNotReportEquality(t *testing.T) {
+	cfg := Config{
+		HTTPPort:              8080,
+		ConnectionName:        "x",
+		ConnectTimeoutSeconds: 20,
+	}
+	err := cfg.Validate()
+	if err == nil {
+		t.Fatal("expected error")
+	}
+	msg := err.Error()
+	if !strings.Contains(msg, "upstream_interface must not be empty") {
+		t.Errorf("missing upstream-empty error: %s", msg)
+	}
+	if !strings.Contains(msg, "interior_interface must not be empty") {
+		t.Errorf("missing interior-empty error: %s", msg)
+	}
+	if strings.Contains(msg, "must not equal") {
+		t.Errorf("should not report equality for empty fields: %s", msg)
+	}
+}
