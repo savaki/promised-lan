@@ -1,0 +1,25 @@
+[Unit]
+Description=promised-lan upstream wifi controller
+Documentation=https://github.com/savaki/promised-lan
+After=NetworkManager.service network-online.target
+Wants=NetworkManager.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/promised-lan serve --config /etc/promised-lan/config.yaml
+Restart=on-failure
+RestartSec=2s
+StandardOutput=journal
+StandardError=journal
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/etc/NetworkManager/system-connections
+ProtectKernelTunables=true
+ProtectKernelModules=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+
+[Install]
+WantedBy=multi-user.target
